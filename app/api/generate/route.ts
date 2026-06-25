@@ -26,17 +26,16 @@ Sois précis et professionnel.`;
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer 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"
+      "Authorization": "Bearer " + process.env.GROQ_API_KEY
     },
     body: JSON.stringify({
-     model: "llama-3.3-70b-versatile",
+      model: "llama-3.3-70b-versatile",
       messages: [{ role: "user", content: prompt }]
     })
   });
 
   const data = await response.json();
- console.log("Réponse Groq:", JSON.stringify(data));
-const rapport = data.choices?.[0]?.message?.content || "Erreur de génération";
+  const rapport = data.choices?.[0]?.message?.content || "Erreur de génération";
 
   return NextResponse.json({ rapport });
 }
