@@ -8,6 +8,8 @@ export default function Home() {
   const [probleme, setProbleme] = useState("");
   const [rapport, setRapport] = useState("");
   const [loading, setLoading] = useState(false);
+  const [respQualite, setRespQualite] = useState("");
+  const [respProd, setRespProd] = useState("");
 
   const telechargerPDF = () => {
     const doc = new jsPDF();
@@ -24,7 +26,7 @@ export default function Home() {
     const res = await fetch("/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ produit, client, probleme }),
+      body: JSON.stringify({ produit, client, probleme, respQualite, respProd }),
     });
     const data = await res.json();
     setRapport(data.rapport);
@@ -47,6 +49,18 @@ export default function Home() {
       </p>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <input
+          placeholder="Nom du responsable qualité"
+          value={respQualite}
+          onChange={(e) => setRespQualite(e.target.value)}
+          style={{ padding: "14px", backgroundColor: "#1a1a1a", border: "1px solid #333", color: "white", fontSize: "15px" }}
+        />
+        <input
+          placeholder="Nom du responsable production"
+          value={respProd}
+          onChange={(e) => setRespProd(e.target.value)}
+          style={{ padding: "14px", backgroundColor: "#1a1a1a", border: "1px solid #333", color: "white", fontSize: "15px" }}
+        />
         <input
           placeholder="Nom du produit"
           value={produit}
