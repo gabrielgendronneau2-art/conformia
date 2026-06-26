@@ -41,6 +41,12 @@ export default function Home() {
       body: JSON.stringify({ produit, client, probleme, respQualite, respProd }),
     });
     const data = await res.json();
+    if (data.erreur) {
+      alert("Vous avez atteint la limite gratuite. Abonnez-vous pour continuer.");
+      window.open("https://docs.google.com/forms/d/12tr3nIZrzmpLl-oz-ROozfkNnGtOyBOLEJhU5RokW88/viewform", "_blank");
+      setLoading(false);
+      return;
+    }
     setRapport(data.rapport);
     const nouveauCompteur = rapportsRestants - 1;
     setRapportsRestants(nouveauCompteur);

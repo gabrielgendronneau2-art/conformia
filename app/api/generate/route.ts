@@ -1,6 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 
+const ipRequests = new Map<string, number>();
+
+function getIP(req: NextRequest): string {
+  return (
+    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
+    req.headers.get("x-real-ip") ||
+    "unknown"
+  );
+}
+
 export async function POST(req: NextRequest) {
+  const ip = getIP(req);
+  const count = (ipRequests.get(ip) ?? 0) + 1;
+  ipRequests.set(ip, count);
+
+  if (count > 3) {
+    return NextResponse.json({ erreur: "Limite atteinte" }, { status: 429 });
+  }
   const body = await req.json();
   const { probleme, produit, client, respQualite, respProd } = body;
 
