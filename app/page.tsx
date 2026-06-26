@@ -50,6 +50,12 @@ export default function Home() {
     setLoading(false);
   };
 
+  const etapes = [
+    { num: "01", titre: "Renseignez votre problème", desc: "Entrez les informations de base : produit, client, responsables, et décrivez la non-conformité détectée." },
+    { num: "02", titre: "L'IA génère votre rapport", desc: "En 10 secondes, notre IA analyse votre problème et structure un rapport 8D complet avec causes racines et actions correctives." },
+    { num: "03", titre: "Téléchargez et envoyez", desc: "Exportez votre rapport en PDF professionnel, prêt à être envoyé à votre client ou donneur d'ordre." },
+  ];
+
   const temoignages = [
     { nom: "Thomas B.", poste: "Responsable Qualité — Équipementier automobile", texte: "Avant Conformia je passais 3h sur chaque rapport 8D. Maintenant c'est 10 secondes. Mes clients reçoivent leurs rapports le jour même." },
     { nom: "Marie L.", poste: "Ingénieure Qualité — Aéronautique", texte: "Le rapport généré est conforme à nos exigences IATF. Je le retouche légèrement et c'est prêt. Un gain de temps énorme." },
@@ -65,24 +71,54 @@ export default function Home() {
   ];
 
   return (
-    <main style={{ minHeight: "100vh", backgroundColor: "#0A0A0A", color: "white", fontFamily: "'Inter', sans-serif" }}>
+    <main style={{ minHeight: "100vh", backgroundColor: "#080808", color: "white", fontFamily: "'Inter', sans-serif" }}>
+
+      {/* NAV */}
+      <nav style={{ borderBottom: "1px solid #1a1a1a", padding: "20px 60px", display: "flex", justifyContent: "space-between", alignItems: "center", maxWidth: "1000px", margin: "0 auto" }}>
+        <div style={{ fontSize: "18px", fontWeight: 800, letterSpacing: "-0.02em" }}>
+          Confor<span style={{ color: "#C9A84C" }}>mia</span>
+        </div>
+        <button
+          onClick={() => window.open("https://docs.google.com/forms/d/12tr3nIZrzmpLl-oz-ROozfkNnGtOyBOLEJhU5RokW88/viewform", "_blank")}
+          style={{ backgroundColor: "#C9A84C", color: "black", border: "none", padding: "10px 24px", fontSize: "13px", fontWeight: 700, cursor: "pointer", letterSpacing: "0.05em" }}
+        >
+          S'abonner
+        </button>
+      </nav>
 
       {/* HERO */}
-      <div style={{ borderBottom: "1px solid #1a1a1a", padding: "80px 60px", maxWidth: "1000px", margin: "0 auto" }}>
-        <div style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", color: "#C9A84C", marginBottom: "24px" }}>
+      <div style={{ borderBottom: "1px solid #1a1a1a", padding: "100px 60px", maxWidth: "1000px", margin: "0 auto" }}>
+        <div style={{ display: "inline-block", fontSize: "11px", fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", color: "#C9A84C", marginBottom: "32px", border: "1px solid #C9A84C33", padding: "6px 16px" }}>
           IA · Qualité Industrielle
         </div>
-        <h1 style={{ fontSize: "64px", fontWeight: 800, lineHeight: 1, letterSpacing: "-0.03em", marginBottom: "24px" }}>
+        <h1 style={{ fontSize: "72px", fontWeight: 800, lineHeight: 0.95, letterSpacing: "-0.03em", marginBottom: "32px" }}>
           Votre rapport 8D<br />
           <span style={{ color: "#C9A84C" }}>en 10 secondes.</span>
         </h1>
-        <p style={{ fontSize: "18px", color: "#666", maxWidth: "500px", lineHeight: 1.7, marginBottom: "48px" }}>
+        <p style={{ fontSize: "18px", color: "#555", maxWidth: "500px", lineHeight: 1.8, marginBottom: "56px" }}>
           Fini les heures passées sur Word. Renseignez votre problème, l'IA génère un rapport 8D professionnel et conforme aux normes ISO/IATF.
         </p>
-        <div style={{ display: "flex", gap: "48px" }}>
-          {["10 secondes", "Normes ISO/IATF", "Export PDF"].map((item) => (
-            <div key={item}>
-              <div style={{ fontSize: "13px", color: "#C9A84C", fontWeight: 600 }}>✓ {item}</div>
+        <div style={{ display: "flex", gap: "40px", paddingTop: "40px", borderTop: "1px solid #1a1a1a" }}>
+          {[["10 sec", "Génération"], ["ISO/IATF", "Conforme"], ["PDF", "Export"], ["100%", "Gratuit pour tester"]].map(([val, label]) => (
+            <div key={label}>
+              <div style={{ fontSize: "22px", fontWeight: 800, color: "#C9A84C" }}>{val}</div>
+              <div style={{ fontSize: "11px", color: "#555", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: "4px" }}>{label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* COMMENT CA MARCHE */}
+      <div style={{ borderBottom: "1px solid #1a1a1a", padding: "80px 60px", maxWidth: "1000px", margin: "0 auto" }}>
+        <div style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", color: "#C9A84C", marginBottom: "48px" }}>
+          Comment ça marche
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "2px", background: "#1a1a1a" }}>
+          {etapes.map((e, i) => (
+            <div key={i} style={{ backgroundColor: "#080808", padding: "40px 32px" }}>
+              <div style={{ fontSize: "48px", fontWeight: 800, color: "#1a1a1a", marginBottom: "24px", lineHeight: 1 }}>{e.num}</div>
+              <div style={{ fontSize: "16px", fontWeight: 700, marginBottom: "12px" }}>{e.titre}</div>
+              <div style={{ fontSize: "13px", color: "#555", lineHeight: 1.8 }}>{e.desc}</div>
             </div>
           ))}
         </div>
@@ -115,17 +151,18 @@ export default function Home() {
         </button>
 
         {rapportsRestants === 0 && (
-          <div style={{ marginTop: "16px", padding: "20px", backgroundColor: "#111", border: "1px solid #C9A84C", textAlign: "center" }}>
+          <div style={{ marginTop: "16px", padding: "24px", backgroundColor: "#0d0d0d", border: "1px solid #C9A84C", textAlign: "center" }}>
             <p style={{ color: "#C9A84C", fontWeight: 700, marginBottom: "8px" }}>Vos 3 rapports gratuits sont utilisés</p>
-            <p style={{ color: "#666", fontSize: "13px", marginBottom: "16px" }}>Abonnez-vous pour un accès illimité</p>
-            <div style={{ display: "flex", justifyContent: "center", gap: "24px" }}>
+            <p style={{ color: "#555", fontSize: "13px", marginBottom: "20px" }}>Abonnez-vous pour un accès illimité</p>
+            <div style={{ display: "flex", justifyContent: "center", gap: "48px" }}>
               <div style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "24px", fontWeight: 800, color: "white" }}>199€</div>
-                <div style={{ fontSize: "12px", color: "#666" }}>/ mois illimité</div>
+                <div style={{ fontSize: "28px", fontWeight: 800, color: "white" }}>199€</div>
+                <div style={{ fontSize: "11px", color: "#555", textTransform: "uppercase", letterSpacing: "0.1em" }}>/ mois illimité</div>
               </div>
+              <div style={{ width: "1px", backgroundColor: "#222" }} />
               <div style={{ textAlign: "center" }}>
-                <div style={{ fontSize: "24px", fontWeight: 800, color: "white" }}>9€</div>
-                <div style={{ fontSize: "12px", color: "#666" }}>/ rapport</div>
+                <div style={{ fontSize: "28px", fontWeight: 800, color: "white" }}>9€</div>
+                <div style={{ fontSize: "11px", color: "#555", textTransform: "uppercase", letterSpacing: "0.1em" }}>/ rapport</div>
               </div>
             </div>
           </div>
@@ -133,7 +170,7 @@ export default function Home() {
 
         {rapport && (
           <>
-            <div style={{ marginTop: "48px", backgroundColor: "#0d0d0d", padding: "40px", border: "1px solid #1a1a1a", whiteSpace: "pre-wrap", lineHeight: 1.9, fontSize: "14px", color: "#ccc" }}>
+            <div style={{ marginTop: "48px", backgroundColor: "#0d0d0d", padding: "40px", border: "1px solid #1a1a1a", whiteSpace: "pre-wrap", lineHeight: 1.9, fontSize: "14px", color: "#aaa" }}>
               {rapport}
             </div>
             <button onClick={telechargerPDF} style={{ width: "100%", backgroundColor: "transparent", color: "#C9A84C", border: "1px solid #C9A84C", padding: "16px", fontSize: "14px", fontWeight: 700, cursor: "pointer", marginTop: "12px", letterSpacing: "0.08em", textTransform: "uppercase" }}>
@@ -150,38 +187,52 @@ export default function Home() {
         </div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "2px", background: "#1a1a1a" }}>
           {temoignages.map((t, i) => (
-            <div key={i} style={{ backgroundColor: "#0A0A0A", padding: "32px" }}>
-              <p style={{ fontSize: "14px", color: "#888", lineHeight: 1.8, marginBottom: "24px", fontStyle: "italic" }}>"{t.texte}"</p>
+            <div key={i} style={{ backgroundColor: "#080808", padding: "32px" }}>
+              <p style={{ fontSize: "14px", color: "#666", lineHeight: 1.8, marginBottom: "24px", fontStyle: "italic" }}>"{t.texte}"</p>
               <p style={{ fontSize: "13px", fontWeight: 700, color: "white" }}>{t.nom}</p>
-              <p style={{ fontSize: "11px", color: "#555" }}>{t.poste}</p>
+              <p style={{ fontSize: "11px", color: "#444" }}>{t.poste}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* FAQ */}
-      <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "80px 60px" }}>
+      <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "80px 60px", borderBottom: "1px solid #1a1a1a" }}>
         <div style={{ fontSize: "11px", fontWeight: 600, letterSpacing: "0.2em", textTransform: "uppercase", color: "#C9A84C", marginBottom: "48px" }}>
           Questions fréquentes
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
           {faqs.map((faq, i) => (
-            <div key={i} style={{ backgroundColor: "#111", borderLeft: faqOuvert === i ? "2px solid #C9A84C" : "2px solid #222" }}>
+            <div key={i} style={{ backgroundColor: "#111", borderLeft: faqOuvert === i ? "2px solid #C9A84C" : "2px solid #1a1a1a" }}>
               <button
                 onClick={() => setFaqOuvert(faqOuvert === i ? null : i)}
                 style={{ width: "100%", textAlign: "left", padding: "20px 24px", background: "none", border: "none", color: "white", fontSize: "14px", fontWeight: 600, cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center" }}
               >
                 {faq.q}
-                <span style={{ color: "#C9A84C", fontSize: "20px", marginLeft: "16px" }}>{faqOuvert === i ? "−" : "+"}</span>
+                <span style={{ color: "#C9A84C", fontSize: "20px", marginLeft: "16px", flexShrink: 0 }}>{faqOuvert === i ? "−" : "+"}</span>
               </button>
               {faqOuvert === i && (
-                <div style={{ padding: "0 24px 20px", fontSize: "14px", color: "#888", lineHeight: 1.8 }}>
+                <div style={{ padding: "0 24px 20px", fontSize: "14px", color: "#666", lineHeight: 1.8 }}>
                   {faq.r}
                 </div>
               )}
             </div>
           ))}
         </div>
+      </div>
+
+      {/* FOOTER CTA */}
+      <div style={{ maxWidth: "1000px", margin: "0 auto", padding: "80px 60px", textAlign: "center" }}>
+        <h2 style={{ fontSize: "40px", fontWeight: 800, letterSpacing: "-0.02em", marginBottom: "16px" }}>
+          Prêt à gagner du temps ?
+        </h2>
+        <p style={{ color: "#555", marginBottom: "40px" }}>3 rapports gratuits. Aucune carte requise.</p>
+        <button
+          onClick={() => document.querySelector("textarea")?.scrollIntoView({ behavior: "smooth" })}
+          style={{ backgroundColor: "#C9A84C", color: "black", border: "none", padding: "18px 48px", fontSize: "14px", fontWeight: 700, cursor: "pointer", letterSpacing: "0.08em", textTransform: "uppercase" }}
+        >
+          Tester gratuitement →
+        </button>
       </div>
 
     </main>
